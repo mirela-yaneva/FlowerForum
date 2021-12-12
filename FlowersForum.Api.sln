@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowersForum.Api", "FlowersForum.Api\FlowersForum.Api.csproj", "{1F8A7090-CF9D-43E1-83E9-3B59D3DB03ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{4CEAC474-5BD6-46CF-B620-5A8F3172587B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowersForum.Data", "FlowersForum.Data\FlowersForum.Data.csproj", "{4B8C6B39-7B89-4A5D-AA61-CE324E7F7B23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowersForum.Domain", "FlowersForum.Domain\FlowersForum.Domain.csproj", "{40549070-4A82-4A1F-A73B-9F1B4762EFC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowersForum.Services", "FlowersForum.Services\FlowersForum.Services.csproj", "{E23619A8-F00E-40A9-A8E5-808B79CAF04E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B0AA977-E409-4BC4-8113-5E05A094F3C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{634C4F13-1A14-40D6-9A8E-7199027BCE0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F8A7090-CF9D-43E1-83E9-3B59D3DB03ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8A7090-CF9D-43E1-83E9-3B59D3DB03ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8A7090-CF9D-43E1-83E9-3B59D3DB03ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8A7090-CF9D-43E1-83E9-3B59D3DB03ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B8C6B39-7B89-4A5D-AA61-CE324E7F7B23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B8C6B39-7B89-4A5D-AA61-CE324E7F7B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B8C6B39-7B89-4A5D-AA61-CE324E7F7B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B8C6B39-7B89-4A5D-AA61-CE324E7F7B23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40549070-4A82-4A1F-A73B-9F1B4762EFC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40549070-4A82-4A1F-A73B-9F1B4762EFC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40549070-4A82-4A1F-A73B-9F1B4762EFC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40549070-4A82-4A1F-A73B-9F1B4762EFC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E23619A8-F00E-40A9-A8E5-808B79CAF04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E23619A8-F00E-40A9-A8E5-808B79CAF04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E23619A8-F00E-40A9-A8E5-808B79CAF04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E23619A8-F00E-40A9-A8E5-808B79CAF04E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F8A7090-CF9D-43E1-83E9-3B59D3DB03ED} = {4CEAC474-5BD6-46CF-B620-5A8F3172587B}
+		{4B8C6B39-7B89-4A5D-AA61-CE324E7F7B23} = {4CEAC474-5BD6-46CF-B620-5A8F3172587B}
+		{40549070-4A82-4A1F-A73B-9F1B4762EFC8} = {4CEAC474-5BD6-46CF-B620-5A8F3172587B}
+		{E23619A8-F00E-40A9-A8E5-808B79CAF04E} = {4CEAC474-5BD6-46CF-B620-5A8F3172587B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {81F897AD-D502-4C3E-8D5C-CAC3B7EA53AD}
+	EndGlobalSection
+EndGlobal
