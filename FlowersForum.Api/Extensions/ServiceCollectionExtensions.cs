@@ -15,7 +15,7 @@ namespace FlowersForum.Api.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rush Hour", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Flower Forum", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",

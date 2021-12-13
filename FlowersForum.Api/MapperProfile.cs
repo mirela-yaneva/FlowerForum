@@ -1,12 +1,17 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FlowersForum.Api.Models;
+using FlowersForum.Domain.Models;
 
 namespace FlowersForum.Api
 {
     public class MapperProfile : Profile
     {
+        public MapperProfile()
+        {
+            CreateMap<SectionModel, SectionVM>().ReverseMap();
+            CreateMap<RuleSectionModel, RuleSectionVM>().ReverseMap();
+            CreateMap<AnswerModel, AnswerVM>().ReverseMap();
+            CreateMap<TopicModel, TopicVM>().ReverseMap();
+        }
     }
 }

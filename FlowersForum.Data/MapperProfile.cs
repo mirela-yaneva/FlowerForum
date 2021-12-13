@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FlowersForum.Data.Entities;
+using FlowersForum.Domain.Models;
 
 namespace FlowersForum.Data
 {
@@ -6,7 +8,10 @@ namespace FlowersForum.Data
     {
         public MapperProfile()
         {
-
+            CreateMap<SectionModel, Section>().ReverseMap();
+            CreateMap<RuleSectionModel, RuleSection>().ReverseMap();
+            CreateMap<AnswerModel, Answer>().ReverseMap();
+            CreateMap<TopicModel, Topic>().ReverseMap();
         }
     }
 }

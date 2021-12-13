@@ -14,7 +14,8 @@ using FlowersForum.Api.Extensions;
 using FlowersForum.Api.Middleware;
 using FlowersForum.Data.Repositories;
 using FlowersForum.Data.Entities;
-using FlowersForum.Domain.Dtos;
+using FlowersForum.Domain.Models;
+using FlowersForum.Services;
 
 namespace FlowersForum.Api
 {
@@ -55,11 +56,11 @@ namespace FlowersForum.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BaseRepository<BaseDto ,BaseEntity>)))
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BaseRepository<BaseModel ,BaseEntity>)))
                    .Where(t => t.Name.EndsWith("Repository"))
                    .AsImplementedInterfaces();
 
-            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof()))
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(SectionService)))
                    .Where(t => t.Name.EndsWith("Service"))
                    .AsImplementedInterfaces();
         }

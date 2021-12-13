@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FlowersForum.Data.Entities;
-using FlowersForum.Domain.Abstractions;
-using FlowersForum.Domain.Dtos;
+using FlowersForum.Domain.Abstractions.Repositories;
+using FlowersForum.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,40 +11,40 @@ using System.Threading.Tasks;
 
 namespace FlowersForum.Data.Repositories
 {
-    public abstract class BaseRepository<TDto, TEntity> : IBaseRepository<TDto>
-        where TDto : BaseDto
-        where TEntity : BaseEntity
+    public abstract class BaseRepository<TModel, T> : IBaseRepository<TModel>
+        where TModel : BaseModel
+        where T : BaseEntity
     {
         protected readonly FlowersForumDbContext _dbContext;
-        protected DbSet<TEntity> entities;
+        protected DbSet<T> entities;
         protected IMapper _mapper;
 
         protected BaseRepository(FlowersForumDbContext dbContext, IMapper mapper)
         {
             _mapper = mapper;
             _dbContext = dbContext;
-            entities = _dbContext.Set<TEntity>();
+            entities = _dbContext.Set<T>();
         }
 
-        public async Task<TDto> CreateAsync(TDto dto)
+        public async Task<TModel> CreateAsync(TModel model)
         {
-            dto.Id = Guid.NewGuid();
-            TEntity entity = _mapper.Map<TEntity>(dto);
+            model.Id = Guid.NewGuid();
+            T entity = _mapper.Map<T>(model);
 
             await entities.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            return _mapper.Map<TDto>(entity);
+            return _mapper.Map<TModel>(entity);
 
         }
 
-        public async Task<List<TDto>> GetAllAsync(int? offset, int? limit, Expression<Func<TDto, bool>> filter = null)
+        public async Task<List<TModel>> GetAllAsync(int? offset, int? limit, Expression<Func<TModel, bool>> filter = null)
         {
             var query = entities.AsQueryable();
 
             if (filter != null)
             {
-                var filterDb = _mapper.Map<Expression<Func<TEntity, bool>>>(filter);
+                var filterDb = _mapper.Map<Expression<Func<T, bool>>>(filter);
                 query = query.Where(filterDb);
             }
 
@@ -57,35 +57,35 @@ namespace FlowersForum.Data.Repositories
                 query = query.Take(limit.Value);
             }
 
-            return await _mapper.ProjectTo<TDto>(query).ToListAsync();
+            return await _mapper.ProjectTo<TModel>(query).ToListAsync();
         }
 
-        public async Task<TDto> GetByIdAsync(Guid id)
+        public async Task<TModel> GetByIdAsync(Guid id)
         {
-            TEntity entity = await entities
+            T entity = await entities
                 .AsNoTracking()
                 .FirstOrDefaultAsync(e => e.Id == id);
-            var dto = _mapper.Map<TDto>(entity);
+            var dto = _mapper.Map<TModel>(entity);
 
             return dto;
         }
 
-        public async Task UpdateAsync(TDto dto)
+        public async Task UpdateAsync(TModel dto)
         {
-            var entity = _mapper.Map<TEntity>(dto);
+            var entity = _mapper.Map<T>(dto);
 
-            _dbContext.Set<TEntity>().Update(entity);
+            _dbContext.Set<T>().Update(entity);
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            TEntity entity = await entities
+            T entity = await entities
                .FirstOrDefaultAsync(e => e.Id == id);
 
             if (entity != null)
             {
-                _dbContext.Set<TEntity>().Remove(entity);
+                _dbContext.Set<T>().Remove(entity);
                 await _dbContext.SaveChangesAsync();
             }
         }
