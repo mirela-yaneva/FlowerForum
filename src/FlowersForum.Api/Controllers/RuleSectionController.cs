@@ -1,16 +1,20 @@
 ﻿using AutoMapper;
 using FlowersForum.Api.Models;
+using FlowersForum.Api.Models.Paginations;
 using FlowersForum.Domain.Abstractions.Services;
+using FlowersForum.Domain.Constants;
 using FlowersForum.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FlowersForum.Api.Controllers
 {
     [ApiController]
     [Route("rule-sections")]
+    [Authorize(Policy = StringConstants.AdminPolicy)]
     public class RuleSectionController : ControllerBase
     {
         private readonly IRuleSectionService _ruleSectionService;
@@ -23,10 +27,11 @@ namespace FlowersForum.Api.Controllers
         }
 
         [HttpGet(Name = "GetRuleSections")]
+        [ProducesResponseType(typeof(PaginationResultVM<RuleSectionVM>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
         {
             var models = await _ruleSectionService.GetAllAsync(offset, limit);
-            return Ok(_mapper.Map<List<RuleSectionVM>>(models));
+            return Ok(_mapper.Map<PaginationResultVM<RuleSectionVM>>(models));
         }
 
         [HttpGet("{id}")]

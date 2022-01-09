@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using FlowersForum.Api.Models;
+using FlowersForum.Api.Models.Paginations;
 using FlowersForum.Domain.Abstractions.Services;
 using FlowersForum.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FlowersForum.Api.Controllers
 {
     [ApiController]
     [Route("topics")]
+    [Authorize]
     public class TopicController : ControllerBase
     {
         private readonly ITopicService _topicService;
@@ -23,10 +26,11 @@ namespace FlowersForum.Api.Controllers
         }
 
         [HttpGet(Name = "GetTopics")]
+        [ProducesResponseType(typeof(PaginationResultVM<TopicVM>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
         {
             var models = await _topicService.GetAllAsync(offset, limit);
-            return Ok(_mapper.Map<List<TopicVM>>(models));
+            return Ok(_mapper.Map<PaginationResultVM<TopicVM>>(models));
         }
 
         [HttpGet("{id}")]

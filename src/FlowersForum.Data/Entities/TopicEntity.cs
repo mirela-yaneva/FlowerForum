@@ -14,5 +14,9 @@ namespace FlowersForum.Data.Entities
         public Guid SectionId { get; set; }
 
         public ICollection<TopicEntity> Subtopics { get; set; }
+
+        public UserEntity User { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }
