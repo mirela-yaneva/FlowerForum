@@ -10,5 +10,9 @@ namespace FlowersForum.Data.Entities
         public RuleSectionEntity Parent { get; set; }
 
         public ICollection<RuleSectionEntity> Rules { get; set; }
+
+        public UserEntity User { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

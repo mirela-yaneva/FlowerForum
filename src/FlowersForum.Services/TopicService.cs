@@ -19,8 +19,8 @@ namespace FlowersForum.Services
         public Task CreateAsync(Topic model)
             => _topicRepository.CreateAsync(model);
 
-        public Task<(List<Topic>, int)> GetAllAsync(int? offset, int? limit)
-            => _topicRepository.GetAllAsync(offset, limit); 
+        public Task<PaginationResult<Topic>> GetAllAsync(int? offset, int? limit)
+            => _topicRepository.GetAllAsync((offset.Value - 1) * limit.Value, limit.Value);
 
         public Task<Topic> GetByIdAsync(Guid id)
         => _topicRepository.GetByIdAsync(id);

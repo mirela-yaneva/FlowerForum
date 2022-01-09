@@ -4,7 +4,7 @@ using FlowersForum.Domain.Models;
 
 namespace FlowersForum.Data
 {
-    class MapperProfile : Profile
+    public class MapperProfile : Profile
     {
         public MapperProfile()
         {
@@ -12,6 +12,7 @@ namespace FlowersForum.Data
             CreateMap<RuleSection, RuleSectionEntity>().ReverseMap();
             CreateMap<Answer, AnswerEntity>().ReverseMap();
             CreateMap<Topic, TopicEntity>().ReverseMap();
+            CreateMap<User, UserEntity>().ReverseMap();
         }
     }
 }

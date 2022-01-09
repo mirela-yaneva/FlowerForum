@@ -8,7 +8,7 @@ namespace FlowersForum.Domain.Abstractions.Services
     public interface IRuleSectionService
     {
         Task CreateAsync(RuleSection model);
-        Task<(List<RuleSection>, int)> GetAllAsync(int? offset, int? limit);
+        Task<PaginationResult<RuleSection>> GetAllAsync(int? offset, int? limit);
         Task<RuleSection> GetByIdAsync(Guid id);
         Task UpdateAsync(RuleSection model);
         Task DeleteAsync(Guid id);

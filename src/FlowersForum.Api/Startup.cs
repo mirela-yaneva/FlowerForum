@@ -51,7 +51,10 @@ namespace FlowersForum.Api
                 options => options.UseSqlServer(Configuration.GetConnectionString("Sql")));
 
             services.AddSwagger();
+            services.AddFlowerForumAuth(Configuration);
             services.AddAutoMapper();
+            services.AddFlowerForumRepositories(Configuration);
+            services.AddFlowerForumServices();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
