@@ -7,8 +7,6 @@ namespace FlowersForum.Api.Models
     {
         public Guid? ParentId { get; set; }
 
-        public RuleSectionVM Parent { get; set; }
-
-        public ICollection<RuleSectionVM> Rules { get; set; }
+        public string Name { get; set; }
     }
 }

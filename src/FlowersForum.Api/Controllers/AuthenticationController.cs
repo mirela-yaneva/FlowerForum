@@ -59,14 +59,5 @@ namespace FlowersForum.Api.Controllers
             await _userService.CreateAsync(model);
             return NoContent();
         }
-
-        [HttpPost("login", Name = "Login")]
-        [ProducesResponseType(typeof(LoginResponseVM), StatusCodes.Status200OK)]
-        public async Task<IActionResult> LoginAcync([FromBody] LoginVM login)
-        {
-            var dto = await _userService.LoginAsync(login.Username, login.Password);
-            return Ok(_mapper.Map<LoginResponseVM>(dto));
-        }
-
     }
 }

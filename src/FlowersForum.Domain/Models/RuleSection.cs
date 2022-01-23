@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace FlowersForum.Domain.Models
 {
@@ -7,8 +6,8 @@ namespace FlowersForum.Domain.Models
     {
         public Guid? ParentId { get; set; }
 
-        public RuleSection Parent { get; set; }
+        public string Name { get; set; }
 
-        public ICollection<RuleSection> Rules { get; set; }
+        public Guid UserId { get; set; }
     }
 }

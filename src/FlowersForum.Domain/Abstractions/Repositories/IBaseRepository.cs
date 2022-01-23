@@ -10,7 +10,7 @@ namespace FlowersForum.Domain.Abstractions.Repositories
     {
         public Task<TModel> CreateAsync(TModel dto);
         public Task<TModel> GetByIdAsync(Guid id);
-        public Task<PaginationResult<TModel>> GetAllAsync(int? offset, int? limit, Expression<Func<TModel, bool>> filter = null);
+        public Task<PaginationResult<TModel>> GetAllAsync(int? pageNumber, int? pageSize, Expression<Func<TModel, bool>> filter = null);
         public Task UpdateAsync(TModel dto);
         public Task DeleteAsync(Guid id);
     }

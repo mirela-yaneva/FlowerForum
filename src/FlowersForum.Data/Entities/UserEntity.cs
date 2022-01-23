@@ -8,17 +8,7 @@ namespace FlowersForum.Data.Entities
     {
         [Required]
         [MaxLength(100)]
-        public string FullName { get; set; }
-
-        [Required]
-        [MaxLength(100)]
-        public string LastName { get; set; }
-
-        [Required]
-        [MaxLength(100)]
-        public string Username { get; set; }
-
-        public string Password { get; set; }
+        public string Email { get; set; }
 
         [Required]
         public Role Role { get; set; }
@@ -27,12 +17,12 @@ namespace FlowersForum.Data.Entities
         [MaxLength(100)]
         public string Salt { get; set; }
 
-        public List<AnswerEntity> Answers { get; set; }
+        public virtual List<AnswerEntity> Answers { get; set; }
 
-        public List<TopicEntity> Topics { get; set; }
+        public virtual List<TopicEntity> Topics { get; set; }
 
-        public List<SectionEntity> Sections { get; set; }
+        public virtual List<SectionEntity> Sections { get; set; }
 
-        public List<RuleSectionEntity> RuleSections { get; set; }
+        public virtual List<RuleSectionEntity> RuleSections { get; set; }
     }
 }

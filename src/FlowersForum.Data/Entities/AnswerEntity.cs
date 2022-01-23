@@ -6,11 +6,11 @@ namespace FlowersForum.Data.Entities
     {
         public Guid TopicId { get; set; }
 
-        public TopicEntity Topic { get; set; }
+        public virtual TopicEntity Topic { get; set; }
 
         public string Text { get; set; }
 
-        public UserEntity User { get; set; }
+        public virtual UserEntity User { get; set; }
 
         public Guid UserId { get; set; }
     }

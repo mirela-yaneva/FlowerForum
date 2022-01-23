@@ -9,13 +9,13 @@ namespace FlowersForum.Data.Entities
 
         public virtual SectionEntity Parent { get; set; }
 
-        public ICollection<SectionEntity> Subsections { get; set; }
+        public virtual ICollection<SectionEntity> Subsections { get; set; }
 
-        public ICollection<TopicEntity> Topics { get; set; }
+        public virtual ICollection<TopicEntity> Topics { get; set; }
 
         public string Name { get; set; }
 
-        public UserEntity User { get; set; }
+        public virtual UserEntity User { get; set; }
 
         public Guid UserId { get; set; }
     }

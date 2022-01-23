@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace FlowersForum.Domain.Models
 {
     public class Section : BaseModel
     {
-        public Section Parent { get; set; }
+        public Guid? ParentId { get; set; }
 
-        public ICollection<Topic> Topics { get; set; }
+        public Guid UserId { get; set; }
+
+        public string Name { get; set; }
     }
 }

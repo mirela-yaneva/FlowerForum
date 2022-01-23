@@ -24,11 +24,18 @@ namespace FlowersForum.Services
             _jwtService = jwtService;
         }
 
-        public Task CreateAsync(User model)
-            => _userRepository.CreateAsync(model);
+        public async Task CreateAsync(User model)
+        {
+            if (await _userRepository.GetUserByEmail(model.Email) != null)
+            {
+                throw new AppException(StringConstants.UserExists);
+            }
 
-        public Task<PaginationResult<User>> GetAllAsync(int? offset, int? limit)
-            => _userRepository.GetAllAsync((offset.Value - 1) * limit.Value, limit.Value);
+            await _userRepository.CreateAsync(model);
+        }
+
+        public Task<PaginationResult<User>> GetAllAsync(int? pageNumber, int? pageSize)
+            => _userRepository.GetAllAsync(pageNumber.Value,pageSize.Value);
 
         public Task<User> GetByIdAsync(Guid id)
             => _userRepository.GetByIdAsync(id);
@@ -39,19 +46,6 @@ namespace FlowersForum.Services
         public Task DeleteAsync(Guid id)
             => (_userRepository.DeleteAsync(id));
 
-        public async Task<LoginResponse> LoginAsync(string userName, string password)
-        {
-            User user = await _userRepository.GetByUsername(userName);
-            if (user == null || !_hasherService.VerifyHashedPassword(password, user.Password, user.Salt))
-            {
-                throw new AppException(StringConstants.InvalidUserOrPass);
-            }
-            var token = _jwtService.GenerateJsonWebToken(user.Role, user.Id);
-
-            return new LoginResponse
-            {
-                JwtToken = token
-            };
-        }
+       
     }
 }

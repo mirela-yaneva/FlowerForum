@@ -18,8 +18,8 @@ namespace FlowersForum.Services
         public Task CreateAsync(RuleSection model)
             => _ruleSectionRepository.CreateAsync(model);
 
-        public Task<PaginationResult<RuleSection>> GetAllAsync(int? offset, int? limit)
-            => _ruleSectionRepository.GetAllAsync((offset.Value - 1) * limit.Value, limit.Value);
+        public Task<PaginationResult<RuleSection>> GetAllAsync(int? pageNumber, int? pageSize)
+            => _ruleSectionRepository.GetAllAsync(pageNumber.Value, pageSize.Value);
 
         public Task<RuleSection> GetByIdAsync(Guid id)
             => _ruleSectionRepository.GetByIdAsync(id);

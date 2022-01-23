@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FlowersForum.Api.Controllers
@@ -49,6 +51,7 @@ namespace FlowersForum.Api.Controllers
             }
 
             var model = _mapper.Map<Topic>(viewModel);
+            model.UserId = Guid.Parse(User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
             await _topicService.CreateAsync(model);
             return CreatedAtRoute("GetActivities", viewModel);
         }

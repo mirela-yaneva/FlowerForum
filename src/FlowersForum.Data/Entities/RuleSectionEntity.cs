@@ -7,12 +7,14 @@ namespace FlowersForum.Data.Entities
     {
         public Guid? ParentId { get; set; }
 
-        public RuleSectionEntity Parent { get; set; }
+        public virtual RuleSectionEntity Parent { get; set; }
 
-        public ICollection<RuleSectionEntity> Rules { get; set; }
+        public virtual ICollection<RuleSectionEntity> Rules { get; set; }
 
-        public UserEntity User { get; set; }
+        public virtual UserEntity User { get; set; }
 
         public Guid UserId { get; set; }
+
+        public string Name { get; set; }
     }
 }

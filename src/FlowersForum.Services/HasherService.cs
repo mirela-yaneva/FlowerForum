@@ -40,7 +40,7 @@ namespace FlowersForum.Services
                 throw new ArgumentNullException(nameof(providedPassword));
             }
 
-            byte[] decodedHashedPassword = Convert.FromBase64String(hashedPassword);
+            var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
             if (decodedHashedPassword.Length == 0)
             {
                 return false;
@@ -51,11 +51,9 @@ namespace FlowersForum.Services
 
         private byte[] GenerateSalt()
         {
-            byte[] salt = new byte[NumberConstants.SaltSize];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
+            var salt = new byte[NumberConstants.SaltSize];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(salt);
 
             return salt;
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace FlowersForum.Api.Models
 {
@@ -7,10 +6,6 @@ namespace FlowersForum.Api.Models
     {
         public Guid? ParentId { get; set; }
 
-        public SectionVM Parent { get; set; }
-
-        public ICollection<SectionVM> Subsections { get; set; }
-
-        public ICollection<TopicVM> Topics { get; set; }
+        public string Name { get; set; }
     }
 }

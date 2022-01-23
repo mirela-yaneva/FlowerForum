@@ -6,14 +6,13 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 using System.Reflection;
-using FlowersForum.Domain;
 using FlowersForum.Data;
 using FlowersForum.Api.Extensions;
 using FlowersForum.Api.Middleware;
 using FlowersForum.Data.Repositories;
 using FlowersForum.Data.Entities;
+using FlowersForum.Domain.Abstractions.Services;
 using FlowersForum.Domain.Models;
 using FlowersForum.Services;
 
@@ -48,7 +47,7 @@ namespace FlowersForum.Api
             services.AddControllers();
 
             services.AddDbContext<FlowersForumDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("Sql")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddSwagger();
             services.AddFlowerForumAuth(Configuration);
@@ -66,10 +65,13 @@ namespace FlowersForum.Api
             builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(SectionService)))
                    .Where(t => t.Name.EndsWith("Service"))
                    .AsImplementedInterfaces();
+
+
+            builder.RegisterType<DateTimeProvider>().As<IDateTimeProvider>().InstancePerLifetimeScope();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, FlowersForumDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -79,12 +81,17 @@ namespace FlowersForum.Api
 
             app.UseCors(CorsWithOriginsPolicyName);
 
+            dbContext.Database.Migrate();
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = "";
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flowers Forum");
+                c.OAuthClientId(Configuration["Authentication:Google:ClientId"]);
+                c.OAuthClientSecret(Configuration["Authentication:Google:ClientSecret"]);
+                c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
             });
 
             app.UseRouting();

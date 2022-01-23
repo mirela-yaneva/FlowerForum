@@ -38,7 +38,7 @@ namespace FlowersForum.Data.Repositories
 
         }
 
-        public async Task<PaginationResult<TModel>> GetAllAsync(int? offset, int? limit, Expression<Func<TModel, bool>> filter = null)
+        public async Task<PaginationResult<TModel>> GetAllAsync(int? pageNumber, int? pageSize, Expression<Func<TModel, bool>> filter = null)
         {
             var query = entities.AsQueryable();
 
@@ -49,9 +49,10 @@ namespace FlowersForum.Data.Repositories
             }
 
             var count = await query.CountAsync();
-            query = query.OrderBy(entity => entity.Id)
-                         .Skip(offset.Value)
-                         .Take(limit.Value);
+            if (pageSize != null && pageNumber != null)
+                    query = query.OrderBy(entity => entity.Id)
+                        .Skip((pageNumber.Value - 1) * pageSize.Value)
+                        .Take(pageSize.Value);
 
             var result = await _mapper.ProjectTo<TModel>(query).ToListAsync();
             return new PaginationResult<TModel>

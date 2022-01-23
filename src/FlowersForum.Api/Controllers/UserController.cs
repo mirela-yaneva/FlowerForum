@@ -28,9 +28,9 @@ namespace FlowersForum.Api.Controllers
 
         [HttpGet(Name = "GetUsers")]
         [ProducesResponseType(typeof(PaginationResultVM<UserVM>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllAsync(int? offset, int? limit)
+        public async Task<IActionResult> GetAllAsync(int? pageNumber, int? pageSize)
         {
-            var models = await _userService.GetAllAsync(offset, limit);
+            var models = await _userService.GetAllAsync(pageNumber, pageSize);
             return Ok(_mapper.Map<PaginationResultVM<UserVM>>(models));
         }
 

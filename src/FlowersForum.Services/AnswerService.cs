@@ -2,7 +2,6 @@
 using FlowersForum.Domain.Abstractions.Services;
 using FlowersForum.Domain.Models;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FlowersForum.Services
@@ -19,8 +18,8 @@ namespace FlowersForum.Services
         public Task CreateAsync(Answer model)
             => _answerRepository.CreateAsync(model);
 
-        public Task<PaginationResult<Answer>> GetAllAsync(int? offset, int? limit)
-            => _answerRepository.GetAllAsync((offset.Value - 1) * limit.Value, limit.Value);
+        public Task<PaginationResult<Answer>> GetAllAsync(int? pageNumber, int? pageSize)
+            => _answerRepository.GetAllAsync(pageNumber.Value, pageSize.Value);
 
         public Task<Answer> GetByIdAsync(Guid id)
             => _answerRepository.GetByIdAsync(id);

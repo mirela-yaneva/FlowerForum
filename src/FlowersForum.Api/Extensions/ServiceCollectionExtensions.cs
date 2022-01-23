@@ -1,4 +1,6 @@
 
+using System;
+using System.Collections.Generic;
 using AutoMapper.Extensions.ExpressionMapping;
 using FlowersForum.Api.Middleware;
 using FlowersForum.Api.Requirements;
@@ -13,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
 
@@ -26,28 +27,35 @@ namespace FlowersForum.Api.Extensions
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Flower Forum", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Type = SecuritySchemeType.ApiKey,
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Name = "Authorization"
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
                     {
+                        Implicit = new OpenApiOAuthFlow()
+                        {
+                            AuthorizationUrl = new Uri("https://accounts.google.com/o/oauth2/v2/auth"),
+                            Scopes = new Dictionary<string, string> { { "email", "email" }, { "profile", "profile" } }
+                        }
+                    }
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
                     {
                         new OpenApiSecurityScheme
                         {
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
+                                Id = "oauth2"
+                            },
+                            Scheme = "oauth2",
+                            Name = "oauth2",
+                            In = ParameterLocation.Header
                         },
-                        new string[]{}
+                        new List<string>()
                     }
-                    });
+                });
             });
         }
 
@@ -74,6 +82,11 @@ namespace FlowersForum.Api.Extensions
             services.Configure<JwtSettings>(jwtSettingsSection);
 
             services.AddAuthentication(cfg => cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme)
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                })
                 .AddJwtBearer(options =>
                 {
                     options.SaveToken = settings.SaveToken;

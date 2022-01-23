@@ -30,7 +30,8 @@ namespace FlowersForum.Data
             modelBuilder.Entity<TopicEntity>()
                  .HasOne(x => x.Parent)
                  .WithMany(x => x.Subtopics)
-                 .HasForeignKey(x => x.ParentId);
+                 .HasForeignKey(x => x.ParentId)
+                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<RuleSectionEntity>()
                         .HasOne(x => x.Parent)

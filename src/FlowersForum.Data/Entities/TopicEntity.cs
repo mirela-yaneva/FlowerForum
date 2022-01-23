@@ -7,16 +7,18 @@ namespace FlowersForum.Data.Entities
     {
         public Guid? ParentId { get; set; }
 
-        public TopicEntity Parent { get; set; }
+        public virtual TopicEntity Parent { get; set; }
 
-        public SectionEntity Section { get; set; }
+        public virtual SectionEntity Section { get; set; }
 
         public Guid SectionId { get; set; }
 
-        public ICollection<TopicEntity> Subtopics { get; set; }
+        public virtual ICollection<TopicEntity> Subtopics { get; set; }
 
-        public UserEntity User { get; set; }
+        public virtual UserEntity User { get; set; }
 
         public Guid UserId { get; set; }
+
+        public string Name { get; set; }
     }
 }

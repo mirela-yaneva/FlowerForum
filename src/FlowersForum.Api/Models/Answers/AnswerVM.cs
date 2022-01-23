@@ -6,8 +6,6 @@ namespace FlowersForum.Api.Models
     {
         public Guid TopicId { get; set; }
 
-        public TopicVM Topic { get; set; }
-
         public string Text { get; set; }
     }
 }
