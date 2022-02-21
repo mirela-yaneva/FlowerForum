@@ -10,12 +10,13 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FlowersForum.Api.Controllers
 {
     [ApiController]
     [Route("answers")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AnswerController : ControllerBase
     {
         private readonly IAnswerService _answerService;

@@ -2,8 +2,8 @@
 using FlowersForum.Api.Models.Paginations;
 using FlowersForum.Api.Models.Users;
 using FlowersForum.Domain.Abstractions.Services;
-using FlowersForum.Domain.Constants;
 using FlowersForum.Domain.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ namespace FlowersForum.Api.Controllers
 {
     [ApiController]
     [Route("api/users")]
-    [Authorize(Policy = StringConstants.AdminPolicy)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

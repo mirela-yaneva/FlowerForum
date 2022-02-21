@@ -3,6 +3,7 @@ using FlowersForum.Api.Models;
 using FlowersForum.Api.Models.Paginations;
 using FlowersForum.Domain.Abstractions.Services;
 using FlowersForum.Domain.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace FlowersForum.Api.Controllers
 {
     [ApiController]
     [Route("topics")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TopicController : ControllerBase
     {
         private readonly ITopicService _topicService;

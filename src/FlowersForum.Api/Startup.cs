@@ -15,16 +15,19 @@ using FlowersForum.Data.Entities;
 using FlowersForum.Domain.Abstractions.Services;
 using FlowersForum.Domain.Models;
 using FlowersForum.Services;
+using FlowersForum.Api.Settings;
 
 namespace FlowersForum.Api
 {
     public class Startup
     {
         readonly string CorsWithOriginsPolicyName = "_corsWithOriginsPolicyName";
+        private readonly AppSettings _appSettings;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            SettingParser.Parse<AppSettings>(configuration, out _appSettings);
         }
 
         public IConfiguration Configuration { get; }
@@ -49,7 +52,7 @@ namespace FlowersForum.Api
             services.AddDbContext<FlowersForumDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSwagger();
+            services.AddSwagger(_appSettings.Authentication);
             services.AddFlowerForumAuth(Configuration);
             services.AddAutoMapper();
             services.AddFlowerForumRepositories(Configuration);

@@ -15,7 +15,9 @@ namespace FlowersForum.Data.Repositories
 
         }
 
-        public Task<User> GetUserByEmail(string username)
-            =>  _mapper.ProjectTo<User>(entities.Where(x => x.Email == username)).FirstOrDefaultAsync();
+        public Task<User> GetUserByEmail(string email)
+            =>  _mapper.ProjectTo<User>(entities.Where(x => x.Email == email)).FirstOrDefaultAsync();
+
+        
     }
 }

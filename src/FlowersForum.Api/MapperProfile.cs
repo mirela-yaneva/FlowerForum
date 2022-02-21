@@ -17,7 +17,6 @@ namespace FlowersForum.Api
             CreateMap(typeof(PaginationResult<>), typeof(PaginationResultVM<>));
             CreateMap<User, UserVM>().ReverseMap();
             CreateMap<LoginResponse, LoginResponseVM>().ReverseMap();
-            CreateMap<RegisterUserVM, User>().ReverseMap();
         }
     }
 }
