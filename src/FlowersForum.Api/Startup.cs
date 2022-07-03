@@ -16,6 +16,11 @@ using FlowersForum.Domain.Abstractions.Services;
 using FlowersForum.Domain.Models;
 using FlowersForum.Services;
 using FlowersForum.Api.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace FlowersForum.Api
 {
@@ -57,11 +62,66 @@ namespace FlowersForum.Api
             services.AddAutoMapper();
             services.AddFlowerForumRepositories(Configuration);
             services.AddFlowerForumServices();
+            services.AddAuthentication(options =>
+
+             {
+
+                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+             })
+
+            .AddJwtBearer(async x =>
+
+            {
+
+                var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
+
+                    $"https://accounts.google.com/.well-known/openid-configuration",
+
+                    new OpenIdConnectConfigurationRetriever(),
+
+                    new HttpDocumentRetriever());
+
+
+
+
+                var discoveryDocument = await configurationManager.GetConfigurationAsync();
+
+
+
+                x.RequireHttpsMetadata = true;
+
+                x.SaveToken = true;
+
+                x.TokenValidationParameters = new TokenValidationParameters
+
+                {
+
+                    //ValidateIssuer = true,
+
+                    //ValidIssuer = discoveryDocument.Issuer,
+
+                    //ValidateIssuerSigningKey = true,
+
+                    //IssuerSigningKeys = discoveryDocument.SigningKeys,
+
+                    ////ValidAudience = _appSettings.Authentication.Audience,
+
+                    ////ValidateAudience = true,
+
+                    //ValidateLifetime = true,
+
+                    //ClockSkew = TimeSpan.FromMinutes(1)
+                };
+
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BaseRepository<BaseModel ,BaseEntity>)))
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BaseRepository<BaseModel, BaseEntity>)))
                    .Where(t => t.Name.EndsWith("Repository"))
                    .AsImplementedInterfaces();
 
@@ -92,8 +152,8 @@ namespace FlowersForum.Api
             {
                 c.RoutePrefix = "";
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flowers Forum");
-                c.OAuthClientId(Configuration["Authentication:Google:ClientId"]);
-                c.OAuthClientSecret(Configuration["Authentication:Google:ClientSecret"]);
+                c.OAuthClientId(_appSettings.Authentication.ClientId);
+                c.OAuthClientSecret(_appSettings.Authentication.ClientSecret);
                 c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
             });
 
